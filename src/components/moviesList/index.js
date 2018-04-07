@@ -12,7 +12,7 @@ const moviesList = ({ movies, genresId }) => {
         return (
             <li className="card" key={item.id} >
                 <HoverBlock genres={item.genre_ids} genresId={genresId}/>
-                <img src={`http://image.tmdb.org/t/p/w300${item.poster_path}`} alt="" className="card-img-top"/>
+                <img src={`http://image.tmdb.org/t/p/w300${item.poster_path}`} alt={title} className="card-img-top"/>
                 <div className="card-body">
                     <h6 className="card-title">{title}</h6>
                     <div className="rating">

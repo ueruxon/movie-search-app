@@ -14,13 +14,20 @@ class MovieIndex extends React.Component {
         searchValue: '',  
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchAllMovies(this.props.match.params);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            window.scrollTo(0, 0);
+            this.props.fetchAllMovies(this.props.match.params);
+        }
     }
 
     render() {
         const { allMovies, genresId } = this.props;
-        
+
         if (!allMovies) return <div>Loading...</div>;
         
         return (
@@ -33,7 +40,7 @@ class MovieIndex extends React.Component {
                 </main>
                 <div className="container">
                     <nav className="navigation">
-                        <NavLink />
+                        <NavLink totalPages={this.props.allMovies.total_pages}/>
                     </nav>
                 </div>
             </Fragment>
