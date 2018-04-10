@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 
 import Page from "./page";
 
 class NavLink extends React.Component {
 
     state = {
-        activePage: 1,
+        activePage: +this.props.currentPage,
     }
 
     createPaginations() {
@@ -54,7 +53,6 @@ class NavLink extends React.Component {
 
 
     render() {
-        
         return (
             <ul className="pagination pagination-lg">
                 {this.createPaginations()}

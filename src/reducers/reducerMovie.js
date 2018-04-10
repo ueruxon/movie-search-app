@@ -1,4 +1,4 @@
-import { FETCH_MOVIES } from "../actions/fetchAllMovies";
+import { FETCH_MOVIES, CURRENT_MOVIE} from "../actions/actionTypes";
 import { genres } from "./genres";
 
 const initialState = {
@@ -13,6 +13,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 allMovies: action.payload.data,
+            } 
+        case CURRENT_MOVIE: 
+            return {
+                currentMovie: state.allMovies.results.find(item => item.id === action.payload.data.id),
+                genres: state.genres,
+                cast: action.payload.data.cast
             }
         default:
             return state;
