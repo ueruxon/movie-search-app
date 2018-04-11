@@ -1,3 +1,3 @@
 
-export { fetchMovies, currentMovie, resetAllMovies, resetCurrentMovie } from "./movies";
+export { fetchMovies, fetchCredits, resetAllMovies, resetCurrentMovie, fetchRecommendations, fetchMovie } from "./movies";
 export { fetchVideo } from "./fetchVideo";

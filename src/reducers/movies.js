@@ -1,4 +1,4 @@
-import { FETCH_MOVIES, CURRENT_MOVIE, RESET_ALL_MOVIES, RESET_CURRENT_MOVIE} from "../actions/actionTypes";
+import { FETCH_MOVIES, RESET_ALL_MOVIES, RESET_CURRENT_MOVIE, FETCH_MOVIE} from "../actions/actionTypes";
 import { genres } from "./genres";
 
 const initialState = {
@@ -14,12 +14,11 @@ export default (state = initialState, action) => {
                 ...state,
                 movies: action.payload.data,
             } 
-        case CURRENT_MOVIE: 
+        case FETCH_MOVIE: 
             return {
-                currentMovie: state.movies.results.find(item => item.id === action.payload.data.id),
-                genres: state.genres,
-                cast: action.payload.data.cast
-            }
+                ...state,
+                currentMovie: action.payload.data,
+            }    
         case RESET_ALL_MOVIES:
             return {
                 ...state,
@@ -29,7 +28,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 currentMovie: null,
-            }    
+            } 
         default:
             return state;
     }

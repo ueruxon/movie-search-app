@@ -5,7 +5,13 @@ import SearchForm from "../components/searchForm/index";
 import MoviesList from "../components/moviesList/index";
 import NavLink from "../components/navigations/index";
 
-import { fetchMovies, currentMovie, fetchVideo, resetAllMovies, resetCurrentMovie } from "../actions/index";
+import { fetchMovies, 
+    fetchCredits, 
+    fetchVideo, 
+    resetAllMovies, 
+    resetCurrentMovie, 
+    fetchRecommendations, 
+    fetchMovie } from "../actions/index";
 
 
 class MovieIndex extends React.Component {
@@ -28,8 +34,10 @@ class MovieIndex extends React.Component {
 
     setMovie = (id) => {
         this.props.resetCurrentMovie();
-        this.props.currentMovie(id);
+        this.props.fetchMovie(id);
+        this.props.fetchCredits(id);
         this.props.fetchVideo(id);
+        this.props.fetchRecommendations(id);
     }
 
     render() {
@@ -39,9 +47,7 @@ class MovieIndex extends React.Component {
         
         return (
             <Fragment>
-                <div className="container">
-                    <SearchForm handleChange={(value) => this.setState({ searchValue: value })} />
-                </div>
+                <SearchForm handleChange={(value) => this.setState({ searchValue: value })} />
                 <main className="col-md-10">
                     <MoviesList movies={allMovies} genresId={genresId} movieClick={this.setMovie}/> 
                 </main>
@@ -63,4 +69,7 @@ const mapStateToProps = state => ({
     genresId: state.allMovies.genres,
 })
 
-export default connect(mapStateToProps, { fetchMovies, currentMovie, fetchVideo, resetAllMovies, resetCurrentMovie })(MovieIndex);
+export default connect(mapStateToProps, 
+    { fetchMovies, fetchCredits, fetchVideo, resetAllMovies, resetCurrentMovie, fetchRecommendations, fetchMovie })(MovieIndex);
+
+    

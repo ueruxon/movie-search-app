@@ -8,7 +8,7 @@ const Rating = require('react-rating');
 const moviesList = ({ movies, genresId, movieClick }) => {
     
     const list = movies.results.map(movie => {
-        const title = movie.title.length < 33 ? movie.title : movie.title.substring(0, 32) + "..."
+        const title = movie.title.length < 33 ? movie.title : movie.title.substring(0, 32) + "...";
 
         return (
             <li className="card" key={movie.id} >

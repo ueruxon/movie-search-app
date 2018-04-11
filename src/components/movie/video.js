@@ -16,7 +16,7 @@ const videoTrailer = ({video}) => {
     }
 
     return (
-        <section className="video-content">
+        <section className="block-content">
             <div className="video-wrapper">
                 {createVideo()}
             </div>

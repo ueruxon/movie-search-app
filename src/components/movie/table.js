@@ -1,21 +1,14 @@
 import React from 'react';
-import _ from "lodash";
 
 const Rating = require('react-rating');
 
-const table = ({ genres, release, rating, genresId, originalTatle, cast }) => {
-
-    const genre = _.filter(genresId, movie => genres.includes(movie.id));
-    const nameGenre = genre.reduce((acc, gen) => acc += gen.name + ', '  , '')
-    const nameActors = cast.splice(0, 5).reduce((acc, val, i) => acc += val.name + ', ' , '')
-
+const table = ({ genres, release, rating, genresId, budget, cast }) => {
+    const nameGenre = genres.reduce((acc, gen) => acc += gen.name + ', '  , '');
+    const nameActors = cast.splice(0, 5).reduce((acc, val, i) => acc += val.name + ', ', '');
+    
     return (
         <table className="table table-striped">
             <tbody>
-                <tr>
-                    <th scope="row">Оригинальное название</th>
-                    <td>{originalTatle}</td>
-                </tr>
                 <tr>
                     <th scope="row">Оценка</th>
                     <td>
@@ -26,6 +19,10 @@ const table = ({ genres, release, rating, genresId, originalTatle, cast }) => {
                             fractions={2}
                             readonly={true} />
                     </td>
+                </tr>
+                <tr>
+                    <th scope="row">Бюджет</th>
+                    <td>{budget}$</td>
                 </tr>
                 <tr>
                     <th scope="row">Жанры</th>

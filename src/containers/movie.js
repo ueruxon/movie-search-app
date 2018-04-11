@@ -4,11 +4,27 @@ import { connect } from "react-redux";
 import SearchForm from "../components/searchForm/index";
 import Table from "../components/movie/table";
 import Video from "../components/movie/video";
+import RecomList from "../components/movie/recomList";
+
+import { fetchVideo, 
+    resetCurrentMovie, 
+    fetchRecommendations, 
+    fetchMovie, 
+    fetchCredits,
+    resetAllMovies} from "../actions/index";
 
 class Movie extends React.Component {
 
+    setMovie = (id) => {
+        this.props.resetCurrentMovie();
+        this.props.fetchMovie(id);
+        this.props.fetchCredits(id);
+        this.props.fetchVideo(id);
+        this.props.fetchRecommendations(id);
+    }
+
     createMovieItem = () => {
-        const { id, title, overview, poster_path, genre_ids, release_date, vote_average, original_title } = this.props.currentMovie;
+        const { id, title, overview, poster_path, genres, release_date, vote_average, budget } = this.props.currentMovie;
 
         return (
             <Fragment>
@@ -20,11 +36,11 @@ class Movie extends React.Component {
                         </div>
                         <div className="header-right">
                             <h4>{title}</h4>
-                            <Table genres={genre_ids}
+                            <Table genres={genres}
                                 release={release_date}
                                 rating={vote_average}
                                 genresId={this.props.genresId}
-                                originalTatle={original_title}
+                                budget={budget}
                                 cast={this.props.cast}
                             />
                         </div>
@@ -34,17 +50,18 @@ class Movie extends React.Component {
                     </div>
                 </section>
                 <Video video={this.props.video} />
+                <RecomList recList={this.props.recList} genresId={this.props.genresId} movieClick={this.setMovie} />
             </Fragment>
         )
     }
 
     render() {
-        if (!this.props.currentMovie) return <div>Loading...</div>;
-
+        if (!this.props.currentMovie || !this.props.cast) return <div>Loading...</div>
+        
         return (
             <div className="container">
-                <SearchForm />
-                <main className="col-md-10 layout-content">
+                <SearchForm reset={() => this.props.resetAllMovies}/>
+                <main className="col-md-10">
                     {this.createMovieItem()}
                 </main>
             </div>
@@ -55,8 +72,10 @@ class Movie extends React.Component {
 const mapStateToProps = state => ({
     currentMovie: state.allMovies.currentMovie,
     genresId: state.allMovies.genres,
-    cast: state.allMovies.cast,
+    cast: state.credits.cast,
     video: state.getVideo.currentVideo,
+    recList: state.recList.recommendations,
 })
 
-export default connect(mapStateToProps)(Movie);
+export default connect(mapStateToProps, 
+    { fetchVideo, resetCurrentMovie, fetchRecommendations, fetchMovie, fetchCredits, resetAllMovies })(Movie);

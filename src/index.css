@@ -12,6 +12,35 @@ body {
     margin-top: 20px;
 }
 
+.nav-block {
+    display: flex;
+    padding: 20px 0;
+    margin: 20px 30px;
+    align-items: center;
+}
+
+.nav-block form {
+    width: 60%;
+}
+
+.nav-link {
+    font-size: 30px;
+    text-decoration: none;
+    color: #d1e2ef;
+    font-family: 'Fredoka One', cursive;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-right: 20px;
+    transition: color .15s ease-in-out, 
+        background-color .15s ease-in-out,
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #e08728;
+}
+
 .input-group-text {
     background-color: #353535;
     color: #d1e2ef;
@@ -70,6 +99,31 @@ body {
     right: 10px;
 }
 
+.btn-outline-secondary {
+    color: #6c757d;
+    background-color: transparent;
+    background-image: none;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #e08728;
+    border-color: #e08728;
+}
+
+.btn-outline-secondary.focus, .btn-outline-secondary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(224, 135, 40,.5);
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active, 
+.btn-outline-secondary:not(:disabled):not(.disabled):active, 
+.show>.btn-outline-secondary.dropdown-toggle {
+    color: #fff;
+    background-color: #e08728;
+    border-color: #e08728;
+}
+
 .fas { color: rgb(224, 135, 40)}
 .far {color: rgb(224, 135, 40)}
 
@@ -106,12 +160,10 @@ body {
 
 /* ------------------ CONTENT CURRENT MOVIE -------------- */
 
-.layout-content {margin-top: 50px}
-
 .block-content {
     background-color: #353535;
     color: #d1e2ef;
-    padding: 10px;
+    padding: 10px 15px;
     margin-bottom: 15px;
 }
 
@@ -144,17 +196,7 @@ body {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0,0,0,.2);
-}
-
-
-.main-content {
-    padding: 10px;
-}
-
-.video-content {
-    background-color: #353535;
-    padding: 20px;
+    background-color: rgba(0,0,0,.3);
 }
 
 .video-wrapper {
@@ -163,4 +205,20 @@ body {
 
 .video-player {
     width: 100%;
+}
+
+/* ---------------------- RECOMMEND LIST ------------------ */
+
+.cards-rec {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+
+.card.card-rec {
+    background-color: rgba(0,0,0,.3);
+    width: calc(25% - 10px);
+    height: 380px;
 }
