@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 
-import MovieIndex from "./containers/movieIndex";
-import Movie from "./components/movie/index";
+import MoviesList from "./containers/moviesList";
+import Movie from "./containers/movie";
 
 class App extends React.Component {
     render() {
@@ -10,8 +10,8 @@ class App extends React.Component {
             <BrowserRouter >
                 <div>
                     <Switch>
-                        <Route exact path="/" component={MovieIndex}/>
-                        <Route path="/pages/:id" component={MovieIndex} />
+                        <Route exact path="/" component={MoviesList}/>
+                        <Route path="/pages/:id" component={MoviesList} />
                         <Route path="/movie/:id" component={Movie} />
                     </Switch>
                 </div>

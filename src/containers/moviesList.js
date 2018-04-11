@@ -5,9 +5,8 @@ import SearchForm from "../components/searchForm/index";
 import MoviesList from "../components/moviesList/index";
 import NavLink from "../components/navigations/index";
 
-import { fetchAllMovies } from "../actions/fetchAllMovies";
-import { setCurrentMovie } from "../actions/setCurrentMovie";
-import { fetchVideo } from "../actions/fetchVideo";
+import { fetchMovies, currentMovie, fetchVideo, resetAllMovies, resetCurrentMovie } from "../actions/index";
+
 
 class MovieIndex extends React.Component {
 
@@ -16,18 +15,20 @@ class MovieIndex extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchAllMovies(this.props.match.params);
+        this.props.fetchMovies(this.props.match.params);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
             window.scrollTo(0, 0);
-            this.props.fetchAllMovies(this.props.match.params);
+            this.props.resetAllMovies();
+            this.props.fetchMovies(this.props.match.params);
         }
     }
 
     setMovie = (id) => {
-        this.props.setCurrentMovie(id);
+        this.props.resetCurrentMovie();
+        this.props.currentMovie(id);
         this.props.fetchVideo(id);
     }
 
@@ -58,8 +59,8 @@ class MovieIndex extends React.Component {
 
 
 const mapStateToProps = state => ({
-    allMovies: state.allMovies.allMovies,
+    allMovies: state.allMovies.movies,
     genresId: state.allMovies.genres,
 })
 
-export default connect(mapStateToProps, { fetchAllMovies, setCurrentMovie, fetchVideo })(MovieIndex);
+export default connect(mapStateToProps, { fetchMovies, currentMovie, fetchVideo, resetAllMovies, resetCurrentMovie })(MovieIndex);
