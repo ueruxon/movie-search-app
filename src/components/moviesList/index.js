@@ -17,7 +17,7 @@ const moviesList = ({ movies, genresId, movieClick }) => {
                     <img src={`http://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={title} className="card-img-top"/>
                 </Link>
                 <div className="card-body">
-                    <h6 className="card-title">{title}</h6>
+                    <h6 className="card-title">{title}({movie.release_date.substring(0, 4)})</h6>
                     <div className="rating">
                         <Rating initialRating={movie.vote_average / 2}
                             emptySymbol="far fa-star"

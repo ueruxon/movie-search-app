@@ -5,9 +5,11 @@ import { FETCH_MOVIES,
     RESET_ALL_MOVIES, 
     RESET_CURRENT_MOVIE, 
     FETCH_RECOMMENDATIONS,
-    FETCH_MOVIE } from "./actionTypes";
+    FETCH_MOVIE, 
+    SEARCH_MOVIE } from "./actionTypes";
 
 const ROOT_URL = `https://api.themoviedb.org/3/movie/`;
+const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie';
 
 export const fetchMovies = page => {
     const request = axios.get(`${ROOT_URL}popular${API_KEY}&language=ru-RU&page=${page.id}`);
@@ -44,6 +46,16 @@ export const fetchRecommendations = id => {
         payload: request,
     }
 }
+
+export const searchMovie = query => {
+    const request = axios.get(`${SEARCH_URL}${API_KEY}&language=ru-RU&query=${query}`);
+
+    return {
+        type: SEARCH_MOVIE,
+        payload: request,
+    }
+}
+
 
 export const resetAllMovies = () => {
     return {

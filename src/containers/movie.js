@@ -5,15 +5,28 @@ import SearchForm from "../components/searchForm/index";
 import Table from "../components/movie/table";
 import Video from "../components/movie/video";
 import RecomList from "../components/movie/recomList";
+import MainLoader from "../components/preloaders/mainLoader";
 
 import { fetchVideo, 
     resetCurrentMovie, 
     fetchRecommendations, 
     fetchMovie, 
     fetchCredits,
-    resetAllMovies} from "../actions/index";
+    resetAllMovies,
+    searchMovie} from "../actions/index";
 
 class Movie extends React.Component {
+
+    state = {
+        searchValue: '',
+    }
+
+    search = (event) => {
+        event.preventDefault();
+        this.props.searchMovie(this.state.searchValue)
+            .then(() => this.props.history.push("/search"));
+            
+    }
 
     setMovie = (id) => {
         this.props.resetCurrentMovie();
@@ -56,11 +69,14 @@ class Movie extends React.Component {
     }
 
     render() {
-        if (!this.props.currentMovie || !this.props.cast) return <div>Loading...</div>
+        if (!this.props.currentMovie || !this.props.cast) return <MainLoader />
         
         return (
             <div className="container">
-                <SearchForm reset={() => this.props.resetAllMovies}/>
+                <SearchForm reset={() => this.props.resetAllMovies()}
+                    handleChange={(value) => this.setState({ searchValue: value })}
+                    value={this.state.searchValue} 
+                    search={this.search} />
                 <main className="col-md-10">
                     {this.createMovieItem()}
                 </main>
@@ -77,5 +93,12 @@ const mapStateToProps = state => ({
     recList: state.recList.recommendations,
 })
 
-export default connect(mapStateToProps, 
-    { fetchVideo, resetCurrentMovie, fetchRecommendations, fetchMovie, fetchCredits, resetAllMovies })(Movie);
+export default connect(mapStateToProps, { 
+    fetchVideo, 
+    resetCurrentMovie, 
+    fetchRecommendations,
+    fetchMovie, 
+    fetchCredits, 
+    resetAllMovies,
+    searchMovie 
+})(Movie);

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import SearchForm from "../components/searchForm/index";
 import MoviesList from "../components/moviesList/index";
 import NavLink from "../components/navigations/index";
+import MainLoader from "../components/preloaders/mainLoader";
 
 import { fetchMovies, 
     fetchCredits, 
@@ -11,7 +12,8 @@ import { fetchMovies,
     resetAllMovies, 
     resetCurrentMovie, 
     fetchRecommendations, 
-    fetchMovie } from "../actions/index";
+    fetchMovie,
+    searchMovie } from "../actions/index";
 
 
 class MovieIndex extends React.Component {
@@ -32,6 +34,15 @@ class MovieIndex extends React.Component {
         }
     }
 
+    search = (event) => {
+        event.preventDefault();
+        if (this.state.searchValue === '') return;
+        
+        this.props.searchMovie(this.state.searchValue)
+            .then(() => this.props.history.push("/search"));
+        this.setState({searchValue: ''});
+    }
+
     setMovie = (id) => {
         this.props.resetCurrentMovie();
         this.props.fetchMovie(id);
@@ -43,11 +54,15 @@ class MovieIndex extends React.Component {
     render() {
         const { allMovies, genresId } = this.props;
 
-        if (!allMovies) return <div>Loading...</div>
+        if (!allMovies) return <MainLoader />
         
         return (
             <Fragment>
-                <SearchForm handleChange={(value) => this.setState({ searchValue: value })} />
+                <SearchForm 
+                    handleChange={(value) => this.setState({ searchValue: value })} 
+                    search={this.search} 
+                    value={this.state.searchValue}
+                    reset={this.props.fetchMovies} />
                 <main className="col-md-10">
                     <MoviesList movies={allMovies} genresId={genresId} movieClick={this.setMovie}/> 
                 </main>
@@ -69,7 +84,15 @@ const mapStateToProps = state => ({
     genresId: state.allMovies.genres,
 })
 
-export default connect(mapStateToProps, 
-    { fetchMovies, fetchCredits, fetchVideo, resetAllMovies, resetCurrentMovie, fetchRecommendations, fetchMovie })(MovieIndex);
+export default connect(mapStateToProps, { 
+    fetchMovies, 
+    fetchCredits, 
+    fetchVideo, 
+    resetAllMovies, 
+    resetCurrentMovie, 
+    fetchRecommendations, 
+    fetchMovie,
+    searchMovie
+})(MovieIndex);
 
     

@@ -5,6 +5,7 @@
 body {
     background-color: #212c39;
     font-family: "Helvetica","Arial",sans-serif;
+    color: #d1e2ef;
 }
 
 .container {
@@ -49,7 +50,7 @@ body {
 .cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .hover-block {
@@ -71,8 +72,9 @@ body {
     position: relative;
     background-color: #353535;
     color: #d1e2ef;
-    width: 270px;
+    width: calc(25% - 12px);
     height: 500px;
+    margin: 6px;
     margin-bottom: 20px;
     overflow: hidden;
 }
@@ -81,6 +83,8 @@ body {
 .card-img-top { height: 80% }
 
 .card-body { padding: 15px 15px 0 }
+
+.card-text { padding: 10px }
 
 .card-title {
     margin-bottom: 0.75rem;
@@ -211,7 +215,7 @@ body {
 
 .cards-rec {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     padding: 0;
     margin: 0;
@@ -221,4 +225,6 @@ body {
     background-color: rgba(0,0,0,.3);
     width: calc(25% - 10px);
     height: 380px;
+    margin: 5px;
+    margin-bottom: 10px;
 }

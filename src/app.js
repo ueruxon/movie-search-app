@@ -3,6 +3,7 @@ import { Route, BrowserRouter, Switch } from "react-router-dom";
 
 import MoviesList from "./containers/moviesList";
 import Movie from "./containers/movie";
+import SearchList from "./containers/searchList";
 
 class App extends React.Component {
     render() {
@@ -13,6 +14,7 @@ class App extends React.Component {
                         <Route exact path="/" component={MoviesList}/>
                         <Route path="/pages/:id" component={MoviesList} />
                         <Route path="/movie/:id" component={Movie} />
+                        <Route path="/search" component={SearchList} />
                     </Switch>
                 </div>
             </BrowserRouter >

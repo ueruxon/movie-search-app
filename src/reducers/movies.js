@@ -1,4 +1,4 @@
-import { FETCH_MOVIES, RESET_ALL_MOVIES, RESET_CURRENT_MOVIE, FETCH_MOVIE} from "../actions/actionTypes";
+import { FETCH_MOVIES, RESET_ALL_MOVIES, RESET_CURRENT_MOVIE, FETCH_MOVIE, SEARCH_MOVIE} from "../actions/actionTypes";
 import { genres } from "./genres";
 
 const initialState = {
@@ -18,7 +18,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 currentMovie: action.payload.data,
-            }    
+            } 
+        case SEARCH_MOVIE: 
+            return {
+                ...state,
+                movies: action.payload.data,
+            }       
         case RESET_ALL_MOVIES:
             return {
                 ...state,

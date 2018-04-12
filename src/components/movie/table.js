@@ -4,8 +4,8 @@ const Rating = require('react-rating');
 
 const table = ({ genres, release, rating, genresId, budget, cast }) => {
     const nameGenre = genres.reduce((acc, gen) => acc += gen.name + ', '  , '');
-    const nameActors = cast.splice(0, 5).reduce((acc, val, i) => acc += val.name + ', ', '');
-    
+    const nameActors = cast.slice(0, 5).reduce((acc, val, i) => acc += val.name + ', ', '');
+
     return (
         <table className="table table-striped">
             <tbody>
@@ -22,7 +22,7 @@ const table = ({ genres, release, rating, genresId, budget, cast }) => {
                 </tr>
                 <tr>
                     <th scope="row">Бюджет</th>
-                    <td>{budget}$</td>
+                    <td>{budget === 0 ? "" : budget + "$"}</td>
                 </tr>
                 <tr>
                     <th scope="row">Жанры</th>
