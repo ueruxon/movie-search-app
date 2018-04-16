@@ -6,6 +6,8 @@ import Table from "../components/movie/table";
 import Video from "../components/movie/video";
 import RecomList from "../components/movie/recomList";
 import MainLoader from "../components/preloaders/mainLoader";
+import Button from "../components/buttons/favorite";
+import Profile from "../components/buttons/profile";
 
 import { fetchVideo, 
     resetCurrentMovie, 
@@ -13,7 +15,9 @@ import { fetchVideo,
     fetchMovie, 
     fetchCredits,
     resetAllMovies,
-    searchMovie} from "../actions/index";
+    searchMovie, 
+    addFavorites,
+    deleteFavorites } from "../actions/index";
 
 class Movie extends React.Component {
 
@@ -39,13 +43,18 @@ class Movie extends React.Component {
     createMovieItem = () => {
         const { id, title, overview, poster_path, genres, release_date, vote_average, budget } = this.props.currentMovie;
 
+        const searchInFavorites = this.props.favorites.find(m => m.id === id) ? true: false;
+        const btnText = searchInFavorites ? "Из избранного" : "В избранное";
+        const btnClass = searchInFavorites ? "added" : "";
+        const btnFunc = searchInFavorites ? this.props.deleteFavorites : this.props.addFavorites;
+        
         return (
             <Fragment>
                 <section key={id} className="block-content">
                     <div className="header-content">
                         <div className="header-left">
                             <img className="header-left__img" src={`http://image.tmdb.org/t/p/w300${poster_path}`} alt={title} />
-                            <button type="button" className="btn btn-outline-secondary">В избранное</button>
+                            <Button btnText={btnText} btnClass={btnClass} id={id} handleClick={btnFunc}/>
                         </div>
                         <div className="header-right">
                             <h4>{title}</h4>
@@ -80,6 +89,7 @@ class Movie extends React.Component {
                 <main className="col-md-10">
                     {this.createMovieItem()}
                 </main>
+                <Profile/>
             </div>
         )
     }
@@ -87,6 +97,7 @@ class Movie extends React.Component {
 
 const mapStateToProps = state => ({
     currentMovie: state.allMovies.currentMovie,
+    favorites: state.allMovies.favorites,
     genresId: state.allMovies.genres,
     cast: state.credits.cast,
     video: state.getVideo.currentVideo,
@@ -100,5 +111,7 @@ export default connect(mapStateToProps, {
     fetchMovie, 
     fetchCredits, 
     resetAllMovies,
-    searchMovie 
+    searchMovie,
+    addFavorites,
+    deleteFavorites
 })(Movie);

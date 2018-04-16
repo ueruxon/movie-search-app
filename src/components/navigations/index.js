@@ -5,7 +5,7 @@ import Page from "./page";
 class NavLink extends React.Component {
 
     state = {
-        activePage: +this.props.currentPage,
+        activePage: this.props.currentPage,
     }
 
     createPaginations() {

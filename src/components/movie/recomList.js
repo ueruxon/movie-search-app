@@ -12,7 +12,7 @@ const recomList = ({ recList, genresId, movieClick }) => {
 
         return (
             <ul className="cards-rec">
-                {recList.splice(0, 8).map(movie => {
+                {recList.slice(0, 8).map(movie => {
                     const title = movie.title.length < 25 ? movie.title : movie.title.substring(0, 25) + "...";
 
                     return (

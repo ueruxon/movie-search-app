@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import SearchForm from "../components/searchForm/index";
 import MoviesList from "../components/moviesList/index";
 import MainLoader from "../components/preloaders/mainLoader";
+import Profile from "../components/buttons/profile";
 
 import {
     fetchCredits,
@@ -12,7 +13,9 @@ import {
     resetCurrentMovie,
     fetchRecommendations,
     fetchMovie,
-    searchMovie
+    searchMovie,
+    addFavorites,
+    deleteFavorites
 } from "../actions/index";
 
 
@@ -39,20 +42,25 @@ class SearchList extends React.Component {
     }
 
     results = () => {
-        if (this.props.allMovies.total_results === 0) {
+        if (this.props.allMovies.length === 0) {
             return (
                 <div className="container">По вашему запросу нечего не найдено...</div>
             )   
         }
 
-        return <MoviesList movies={this.props.allMovies} genresId={this.props.genresId} movieClick={this.setMovie} />
+        return <MoviesList movies={this.props.allMovies} 
+            genresId={this.props.genresId}
+            favorites={this.props.favorites}
+            addFavorites={this.props.addFavorites}
+            deleteFavorites={this.props.deleteFavorites}
+            movieClick={this.setMovie} />
     }
 
     render() {
         const { allMovies } = this.props;
 
         if (!allMovies) return <MainLoader />
-
+        
         return (
             <Fragment>
                 <SearchForm
@@ -63,6 +71,7 @@ class SearchList extends React.Component {
                 <main className="col-md-10">
                     {this.results()}
                 </main>
+                <Profile />
             </Fragment>
         )
     }
@@ -72,6 +81,7 @@ class SearchList extends React.Component {
 const mapStateToProps = state => ({
     allMovies: state.allMovies.movies,
     genresId: state.allMovies.genres,
+    favorites: state.allMovies.favorites,
 })
 
 export default connect(mapStateToProps, {
@@ -81,5 +91,7 @@ export default connect(mapStateToProps, {
     resetCurrentMovie,
     fetchRecommendations,
     fetchMovie,
-    searchMovie
+    searchMovie,
+    addFavorites,
+    deleteFavorites
 })(SearchList);

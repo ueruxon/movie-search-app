@@ -5,8 +5,10 @@ import { FETCH_MOVIES,
     RESET_ALL_MOVIES, 
     RESET_CURRENT_MOVIE, 
     FETCH_RECOMMENDATIONS,
+    ADD_FAVORITES,
     FETCH_MOVIE, 
-    SEARCH_MOVIE } from "./actionTypes";
+    SEARCH_MOVIE,
+    DELETE_FAVORITES } from "./actionTypes";
 
 const ROOT_URL = `https://api.themoviedb.org/3/movie/`;
 const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie';
@@ -56,6 +58,19 @@ export const searchMovie = query => {
     }
 }
 
+export const addFavorites = id => {
+    return {
+        type: ADD_FAVORITES,
+        payload: id,
+    }
+}
+
+export const deleteFavorites = id => {
+    return {
+        type: DELETE_FAVORITES,
+        payload: id,
+    }
+}
 
 export const resetAllMovies = () => {
     return {

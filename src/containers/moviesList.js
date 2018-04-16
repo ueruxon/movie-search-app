@@ -5,6 +5,7 @@ import SearchForm from "../components/searchForm/index";
 import MoviesList from "../components/moviesList/index";
 import NavLink from "../components/navigations/index";
 import MainLoader from "../components/preloaders/mainLoader";
+import Profile from "../components/buttons/profile";
 
 import { fetchMovies, 
     fetchCredits, 
@@ -13,7 +14,9 @@ import { fetchMovies,
     resetCurrentMovie, 
     fetchRecommendations, 
     fetchMovie,
-    searchMovie } from "../actions/index";
+    searchMovie,
+    addFavorites,
+    deleteFavorites } from "../actions/index";
 
 
 class MovieIndex extends React.Component {
@@ -52,7 +55,7 @@ class MovieIndex extends React.Component {
     }
 
     render() {
-        const { allMovies, genresId } = this.props;
+        const { allMovies, genresId, favorites } = this.props;
 
         if (!allMovies) return <MainLoader />
         
@@ -64,13 +67,17 @@ class MovieIndex extends React.Component {
                     value={this.state.searchValue}
                     reset={this.props.fetchMovies} />
                 <main className="col-md-10">
-                    <MoviesList movies={allMovies} genresId={genresId} movieClick={this.setMovie}/> 
+                    <MoviesList movies={allMovies} 
+                        genresId={genresId} 
+                        movieClick={this.setMovie}
+                        addFavorites={this.props.addFavorites}
+                        deleteFavorites={this.props.deleteFavorites}
+                        favorites={favorites} /> 
                 </main>
+                <Profile/>
                 <div className="container">
                     <nav className="navigation">
-                        <NavLink totalPages={this.props.allMovies.total_pages} 
-                            currentPage={this.props.match.params.id}
-                        />
+                        <NavLink totalPages={980} currentPage={this.props.match.params.id}/>
                     </nav>
                 </div>
             </Fragment>
@@ -82,6 +89,7 @@ class MovieIndex extends React.Component {
 const mapStateToProps = state => ({
     allMovies: state.allMovies.movies,
     genresId: state.allMovies.genres,
+    favorites: state.allMovies.favorites
 })
 
 export default connect(mapStateToProps, { 
@@ -92,7 +100,9 @@ export default connect(mapStateToProps, {
     resetCurrentMovie, 
     fetchRecommendations, 
     fetchMovie,
-    searchMovie
+    searchMovie,
+    addFavorites,
+    deleteFavorites
 })(MovieIndex);
 
     

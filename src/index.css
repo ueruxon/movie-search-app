@@ -103,6 +103,12 @@ body {
     right: 10px;
 }
 
+.btn-outline-secondary.added {
+    color: #fff;
+    background-color: #e08728;
+    border-color: #e08728;
+}
+
 .btn-outline-secondary {
     color: #6c757d;
     background-color: transparent;
@@ -228,3 +234,26 @@ body {
     margin: 5px;
     margin-bottom: 10px;
 }
+
+/* ------------------- PROFILE -------------- */
+
+.profile {
+    position: fixed;
+    top: 40px;
+    right: 45px;
+}
+
+.profile a {
+    display: inline-block;
+    padding: 15px;
+    border-radius: 10px;
+    color: #d1e2ef;
+    text-decoration: none;
+    border: 2px solid;
+    transition: color .15s ease-in-out, 
+        background-color .15s ease-in-out,
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
+        
+}
+.profile a:hover {color: #e08728;}

@@ -2,17 +2,23 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 import HoverBlock from "./hoverBlock";
+import Button from "../buttons/favorite";
 
 const Rating = require('react-rating');
 
-const moviesList = ({ movies, genresId, movieClick }) => {
+const moviesList = ({ movies, genresId, movieClick, addFavorites, favorites, deleteFavorites }) => {
     
-    const list = movies.results.map(movie => {
+    const list = movies.map(movie => {
         const title = movie.title.length < 33 ? movie.title : movie.title.substring(0, 32) + "...";
 
+        const searchInFavorites = favorites.find(m => m.id === movie.id);
+        const btnText = searchInFavorites ? "Из избранного" : "В избранное";
+        const btnClass = searchInFavorites ? "added" : "";
+        const btnFunc = searchInFavorites ? deleteFavorites : addFavorites;
+        
         return (
             <li className="card" key={movie.id} >
-                <HoverBlock genres={movie.genre_ids} genresId={genresId}/>
+                <HoverBlock genres={movie.genre_ids || movie.genres} genresId={genresId}/>
                 <Link to={`/movie/${movie.id}`} onClick={() => movieClick(movie.id)}>
                     <img src={`http://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={title} className="card-img-top"/>
                 </Link>
@@ -25,7 +31,11 @@ const moviesList = ({ movies, genresId, movieClick }) => {
                             fractions={2}
                             readonly={true} />
                     </div>
-                    <button type="button" className="btn btn-outline-secondary favorites">В избранное</button>
+                    <Button btnText={btnText} 
+                        btnClass={btnClass} 
+                        id={movie.id} 
+                        handleClick={btnFunc} 
+                        btnClassPos="favorites" />
                 </div>
             </li>
         )

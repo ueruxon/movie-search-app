@@ -5,6 +5,8 @@ export { fetchMovies,
     resetCurrentMovie, 
     fetchRecommendations, 
     fetchMovie,
-    searchMovie } from "./movies";
+    searchMovie,
+    addFavorites,
+    deleteFavorites } from "./movies";
 
 export { fetchVideo } from "./fetchVideo";
