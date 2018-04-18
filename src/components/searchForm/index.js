@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 const searchForm = ({ handleChange, reset, search, value }) => {
     return (
+        <div className="container">
             <header className="nav-block">
-            <Link to="/" className="nav-link" onClick={reset}>Movie-app</Link>
+                <Link to="/" className="nav-link" onClick={reset}>Movie-app</Link>
                 <form onSubmit={(event) => search(event)}>
                     <div className="input-group input-group-lg">
                         <div className="input-group-prepend">
@@ -17,6 +18,7 @@ const searchForm = ({ handleChange, reset, search, value }) => {
                     </div>
                 </form>
             </header>
+        </div>
     )
 }
 

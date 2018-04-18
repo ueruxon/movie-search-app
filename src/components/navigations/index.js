@@ -5,14 +5,14 @@ import Page from "./page";
 class NavLink extends React.Component {
 
     state = {
-        activePage: this.props.currentPage,
+        activePage: +this.props.currentPage || 1,
     }
 
     createPaginations() {
         const paginationList = [];
         const { totalPages } = this.props;
         const { activePage } = this.state;
-
+        
         paginationList.push(
             <Page page={`< Prev`} key={`prev`}
                 href={`/pages/${this.state.activePage - 1}`}

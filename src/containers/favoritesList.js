@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from "react-redux";
 
 import SearchForm from "../components/searchForm/index";
@@ -47,20 +47,22 @@ class Favorites extends React.Component {
         const { favorites, genresId } = this.props;
 
         return (
-            <div className="container">
-                <SearchForm
-                    handleChange={(value) => this.setState({ searchValue: value })}
-                    search={this.search}
-                    value={this.state.searchValue}
-                    reset={this.props.resetAllMovies} />
-                <MoviesList movies={favorites}
-                    genresId={genresId}
-                    movieClick={this.setMovie}
-                    addFavorites={this.props.addFavorites}
-                    deleteFavorites={this.props.deleteFavorites}
-                    favorites={favorites}
-                />
-            </div>
+            <Fragment> 
+                    <SearchForm
+                        handleChange={(value) => this.setState({ searchValue: value })}
+                        search={this.search}
+                        value={this.state.searchValue}
+                        reset={this.props.resetAllMovies} />
+                <div className="col-md-10">
+                    <MoviesList movies={favorites}
+                        genresId={genresId}
+                        movieClick={this.setMovie}
+                        addFavorites={this.props.addFavorites}
+                        deleteFavorites={this.props.deleteFavorites}
+                        favorites={favorites}
+                    />
+                </div>
+            </Fragment>
         )
     }
 }
