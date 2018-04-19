@@ -72,7 +72,6 @@ class NavLink extends React.Component {
         return paginationList;
     }
 
-
     render() {
         return (
             <ul className="pagination pagination-lg">
