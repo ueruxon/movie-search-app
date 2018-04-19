@@ -1,50 +1,71 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 import Page from "./page";
 
 class NavLink extends React.Component {
 
-    state = {
-        activePage: +this.props.currentPage || 1,
-    }
-
     createPaginations() {
         const paginationList = [];
         const { totalPages } = this.props;
-        const { activePage } = this.state;
-        
+        const  activePage  = +this.props.match.params.id || 1;
+    
         paginationList.push(
             <Page page={`< Prev`} key={`prev`}
-                href={`/pages/${this.state.activePage - 1}`}
-                handleChange={() => this.setState((prevState) => {
-                    return { activePage: prevState.activePage - 1 }
-                })}
+                href={`/pages/${activePage - 1}`}
                 disabled={activePage === 1 ? `disabled` : ""}
             />
         )
 
-        for (let i = 1; i < totalPages; i++) {
-            const href = `/pages/${i}`;
-            const currentPage = activePage === i ? `active` : ``;
-            
-            if (paginationList.length >= 7) break;
+        if (totalPages <= activePage +3) {
+            for (let i = activePage - 4; i <= totalPages; i++) {
+                const href = `/pages/${i}`;
+                const currentPage = activePage === i ? `active` : ``;
 
-            paginationList.push(
-                <Page page={i} key={i} 
-                    href={href} 
-                    handleChange={(current) => this.setState({ activePage: current })} 
-                    activePage={currentPage}
-                />
-            )
+                if (paginationList.length >= 7) break;
+
+                paginationList.push(
+                    <Page page={i} key={i}
+                        href={href}
+                        activePage={currentPage}
+                    />
+                )
+            }
+            
+        } else if (activePage >= 3 ) {
+            for (let i = activePage - 2; i < activePage + 5; i++) {
+                const href = `/pages/${i}`;
+                const currentPage = activePage === i ? `active` : ``;
+                
+                if (paginationList.length >= 7) break;
+
+                paginationList.push(
+                    <Page page={i} key={i}
+                        href={href}
+                        activePage={currentPage}
+                    />
+                )
+            }
+        } else {
+            for (let i = 1; i < totalPages; i++) {
+                const href = `/pages/${i}`;
+                const currentPage = activePage === i ? `active` : ``;
+                
+                if (paginationList.length >= 7) break;
+    
+                paginationList.push(
+                    <Page page={i} key={i} 
+                        href={href} 
+                        activePage={currentPage}
+                    />
+                )
+            }
         }
 
         paginationList.push(
             <Page page={`Next >`} key={`next`}
                 href={`/pages/${activePage +1}`}
-                handleChange={() => this.setState((prevState) => {
-                    return { activePage: prevState.activePage + 1 }
-                })}
-                disabled={activePage +1 === totalPages ? `disabled` : ""}
+                disabled={activePage === totalPages ? `disabled` : ""}
             />
         )
         
@@ -57,9 +78,8 @@ class NavLink extends React.Component {
             <ul className="pagination pagination-lg">
                 {this.createPaginations()}
             </ul>
-            
         )
     }
 }
 
-export default NavLink;
+export default withRouter(NavLink);

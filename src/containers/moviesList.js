@@ -77,7 +77,7 @@ class MovieIndex extends React.Component {
                 <Profile/>
                 <div className="container">
                     <nav className="navigation">
-                        <NavLink totalPages={980} currentPage={this.props.match.params.id}/>
+                        <NavLink totalPages={980} />
                     </nav>
                 </div>
             </Fragment>
