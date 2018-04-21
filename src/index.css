@@ -71,7 +71,7 @@ body {
     position: relative;
     background-color: #353535;
     color: #d1e2ef;
-    width: calc(25% - 12px);
+    width: 260px;
     height: 500px;
     margin: 6px;
     margin-bottom: 20px;
